@@ -1,0 +1,123 @@
+{
+  "info": {
+    "_postman_id": "30b42848-c414-42bb-983d-4755196ebed0",
+    "name": "Integration Sync Engine",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56397575",
+    "_collection_link": "https://go.postman.co/collection/56397575-30b42848-c414-42bb-983d-4755196ebed0?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get User Repos",
+      "request": {
+        "auth": {
+          "type": "bearer"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{github_token}}",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/vnd.github+json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://api.github.com/users/VaishnaviKandukuri/repos",
+          "protocol": "https",
+          "host": [
+            "api",
+            "github",
+            "com"
+          ],
+          "path": [
+            "users",
+            "VaishnaviKandukuri",
+            "repos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Repo Contributors",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{github_token}}",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/vnd.github+json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://api.github.com/repos/psf/requests/contributors",
+          "protocol": "https",
+          "host": [
+            "api",
+            "github",
+            "com"
+          ],
+          "path": [
+            "repos",
+            "psf",
+            "requests",
+            "contributors"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Push Contributor to Airtable",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{airtable_token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"fields\": {\r\n    \"Username\": \"PostmanTest\",\r\n    \"Repository\": \"requests\",\r\n    \"ContributionCount\": 1,\r\n    \"SourceID\": \"postman_test_001\",\r\n    \"SourceSystem\": \"github\"\r\n  }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.airtable.com/v0/{{airtable_base_id}}/Contributors",
+          "protocol": "https",
+          "host": [
+            "api",
+            "airtable",
+            "com"
+          ],
+          "path": [
+            "v0",
+            "{{airtable_base_id}}",
+            "Contributors"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
