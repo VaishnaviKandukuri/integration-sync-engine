@@ -2,6 +2,7 @@ import uuid
 import datetime as dt
 from sqlalchemy import Column, String, Integer, DateTime
 from app.database import Base
+from sqlalchemy import Column, String, Integer, DateTime, Float
 
 
 def generate_uuid() -> str:
@@ -20,3 +21,14 @@ class Contributor(Base):
 
     created_at = Column(DateTime, default=dt.datetime.utcnow)
     updated_at = Column(DateTime, default=dt.datetime.utcnow, onupdate=dt.datetime.utcnow)
+
+
+class ApiCallLog(Base):
+    __tablename__ = "api_call_log"
+
+    id = Column(String, primary_key=True, default=generate_uuid)
+    system = Column(String, nullable=False)
+    endpoint = Column(String, nullable=False)
+    status_code = Column(Integer, nullable=False)
+    latency_ms = Column(Float, nullable=False)
+    called_at = Column(DateTime, default=dt.datetime.utcnow)
